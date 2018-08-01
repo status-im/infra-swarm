@@ -15,7 +15,7 @@ variable ssh_keys {
 
 variable env {
   description = "Environment for these hosts, affects DNS entries."
-  default     = "eth"
+  default     = "swarm"
 }
 
 variable domain {

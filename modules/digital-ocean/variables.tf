@@ -11,7 +11,7 @@ variable nodes_per_host {
 variable size {
   description = "Size of the hosts to deploy."
   # cmd: doctl compute size list
-  default     = "s-1vcpu-1gb"
+  default     = "s-1vcpu-2gb"
 }
 
 variable region {

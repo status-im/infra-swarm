@@ -41,18 +41,20 @@ locals {
 /* RESOURCES --------------------------------------*/
 
 module "swarm" {
-  source         = "modules/multi-provider"
+  source      = "modules/multi-provider"
   /* node type */
-  name           = "swarm"
-  group          = "swarm"
+  name        = "node"
+  group       = "swarm"
   /* scaling options */
-  count          = "${local.ws["hosts_count"]}"
+  count       = "${local.ws["hosts_count"]}"
+  do_size     = "s-1vcpu-2gb"
   /* general */
-  env            = "${var.env}"
-  domain         = "${var.domain}"
-  eth_network    = "${var.eth_network}"
+  env         = "${var.env}"
+  domain      = "${var.domain}"
+  eth_network = "${var.eth_network}"
   /* firewall */
-  open_ports     = [
-    "30404-30410", /* discovery */
+  open_ports  = [
+    "30303-30303", /* geth */
+    "30399-30399", /* swarm */
   ]
 }
