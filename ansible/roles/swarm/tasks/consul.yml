@@ -1,0 +1,9 @@
+- name: Create Consul service definition
+  include_role: name=consul-service
+  vars:
+    consul_config_name: '{{ cont_name }}'
+    consul_services:
+      - id: '{{ cont_name }}'
+        name: '{{ cont_name }}'
+        port: '{{ cont_port }}'
+        tags: ['{{ env }}.{{ stage }}', 'swarm']

@@ -1,0 +1,38 @@
+---
+- name: Run Swarm container
+  docker_container:
+    name: '{{ cont_name }}'
+    image: '{{ cont_image }}'
+    user: root
+    pull: true
+    restart_policy: always
+    state: '{{ cont_state }}'
+    recreate: '{{ cont_recreate }}'
+    restart: '{{ cont_restart }}'
+    ports:
+      - '{{ cont_port }}:{{ cont_port }}'
+    links:
+      - '{{ geth_name }}:geth'
+    command: |
+      --debug
+      --port={{ cont_port }}
+      --bzzaccount={{ geth_account }}
+      --datadir=/data
+      --keystore=/keys
+      --store.path=/store
+      --ens-api='geth:{{ geth_rpc_port }}'
+    volumes:
+      - '{{ geth_vol }}/keys:/keys:rw'
+      - '{{ cont_vol }}/data:/data:rw'
+      - '{{ cont_vol }}/store:/store:rw'
+
+- name: Enable swarm port
+  iptables:
+    comment: '{{ cont_name }}'
+    chain: INPUT
+    jump: ACCEPT
+    source: '0.0.0.0/0'
+    protocol: udp
+    destination_port: '{{ cont_port }}'
+  notify:
+    - Save iptables rules

@@ -1,0 +1,5 @@
+---
+- name: Configure swarm
+  hosts: swarm
+  roles:
+    - role: swarm

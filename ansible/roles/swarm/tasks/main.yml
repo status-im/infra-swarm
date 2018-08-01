@@ -1,0 +1,16 @@
+---
+- name: Create directories for geth
+  file:
+    path: '{{ item }}'
+    state: directory
+  with_items:
+    - '{{ geth_vol }}/data'
+    - '{{ geth_vol }}/keys'
+    - '{{ cont_vol }}/data'
+    - '{{ cont_vol }}/store'
+
+#- include_tasks: gen_keys.yml
+- include_tasks: account.yml
+- include_tasks: geth.yml
+- include_tasks: swarm.yml
+- include_tasks: consul.yml
