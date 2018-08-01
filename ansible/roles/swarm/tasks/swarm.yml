@@ -19,8 +19,9 @@
       --bzzaccount={{ geth_account }}
       --datadir=/data
       --keystore=/keys
+      --password=/keys/password
       --store.path=/store
-      --ens-api='geth:{{ geth_rpc_port }}'
+      --ens-api='http://geth:{{ geth_rpc_port }}'
     volumes:
       - '{{ geth_vol }}/keys:/keys:rw'
       - '{{ cont_vol }}/data:/data:rw'

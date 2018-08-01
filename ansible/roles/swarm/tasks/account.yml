@@ -6,10 +6,10 @@
     file_type: file
   register: account_files
 
-- name: Generate Geth password
+- name: Set Geth password to be empty
   copy:
     dest: '{{ geth_keys }}/password'
-    content: '{{ lookup("password", "length=16") }}'
+    content: ''
 
 - name: Generate Geth account
   docker_container:
@@ -32,6 +32,7 @@
     volumes:
       - '{{ geth_vol }}/keys:/keys:rw'
   when: account_files.files | length == 0
+  register: dbg
 
 - name: Find all enode files
   find:
@@ -39,6 +40,8 @@
     patterns: 'UTC--*'
     file_type: file
   register: account_files
+
+- debug: msg={{account_files}}
 
 - name: Read account addres
   shell: 'cat {{ account_files.files[0].path }} | jq -r .address'
