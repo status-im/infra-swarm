@@ -2,8 +2,11 @@
 locals {
   stage      = "${terraform.workspace}"
   dc         = "${var.provider}-${var.zone}"
-  /* always add SSH, Tinc, and Netdata to allowed ports */
-  open_ports = ["22", "655", "8000", "${var.open_ports}"]
+  /* always add SSH, Tinc, Netdata, and Consul to allowed ports */
+  open_ports = [
+    "22", "655", "8000", "8301",
+    "${var.open_ports}"
+  ]
 }
 /* RESOURCES ------------------------------------*/
 

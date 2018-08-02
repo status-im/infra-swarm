@@ -3,9 +3,10 @@ locals {
   stage      = "${terraform.workspace}"
   tokens     = "${split(".", local.stage)}"
   dc         = "${var.provider}-${var.zone}"
-  /* always add SSH, Tinc, and Netdata to allowed ports */
+  /* always add SSH, Tinc, Netdata, and Consul to allowed ports */
   open_ports = [
-    "22/22", "655/655", "8000/8000", "${var.open_ports}",
+    "22/22", "655/655", "8000/8000", "8301/8301",
+    "${var.open_ports}",
   ]
 }
 /* RESOURCES ------------------------------------*/
