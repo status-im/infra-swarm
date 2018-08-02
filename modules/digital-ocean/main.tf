@@ -46,7 +46,7 @@ resource "digitalocean_floating_ip" "host" {
   droplet_id = "${element(digitalocean_droplet.host.*.id, count.index)}"
   region     = "${element(digitalocean_droplet.host.*.region, count.index)}"
   count      = "${var.count}"
-  lifecycle  = { prevent_destroy = true }
+  /*lifecycle  = { prevent_destroy = true }*/
 }
 
 resource "cloudflare_record" "host" {

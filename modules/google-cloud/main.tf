@@ -19,7 +19,7 @@ locals = {
 resource "google_compute_address" "host" {
   name       = "${var.name}-${format("%02d", count.index+1)}-${local.dc}-${var.env}-${local.stage}"
   count      = "${var.count}"
-  lifecycle  = { prevent_destroy = true }
+  /*lifecycle  = { prevent_destroy = true }*/
 }
 
 resource "google_compute_firewall" "host" {

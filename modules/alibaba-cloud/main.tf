@@ -89,7 +89,7 @@ resource "alicloud_instance" "host" {
 
 resource "alicloud_eip" "host" {
   count      = "${var.count}"
-  lifecycle  = { prevent_destroy = true }
+  /*lifecycle  = { prevent_destroy = true }*/
 }
 
 resource "alicloud_eip_association" "host" {
