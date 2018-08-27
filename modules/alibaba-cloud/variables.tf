@@ -1,5 +1,9 @@
 /* SCALING --------------------------------------*/
 
+variable count {
+  description = "Number of instances to start in this region."
+}
+
 variable image {
   /**
    * This image is created with Packer because Alicloud does not provide one
@@ -27,10 +31,6 @@ variable disk {
 variable max_band_out {
   description = "Maximum outgoing bandwidth to the public network, measured in Mbps."
   default     = 30
-}
-
-variable count {
-  description = "Number of instances to start in this region."
 }
 
 /* FIREWALL -------------------------------------*/
