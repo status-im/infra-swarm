@@ -54,17 +54,19 @@ module "swarm" {
   eth_network = "${var.eth_network}"
   /* firewall */
   open_ports  = [
-    "8800-8800", /* http */
+    "8800-8800",   /* http */
+    "8900-8900",   /* https */
     "30303-30303", /* geth */
     "30399-30399", /* swarm */
   ]
 }
 
 resource "cloudflare_record" "swarm" {
-  domain = "${var.domain}"
-  name   = "${var.env}-${terraform.workspace}"
-  value  = "${element(module.swarm.public_ips, count.index)}"
-  count  = "${local.ws["hosts_count"]}"
-  type   = "A"
-  ttl    = 3600
+  domain  = "${var.domain}"
+  name    = "${var.env}-${terraform.workspace}"
+  value   = "${element(module.swarm.public_ips, count.index)}"
+  count   = 3
+  type    = "A"
+  ttl     = 3600
+  proxied = true
 }

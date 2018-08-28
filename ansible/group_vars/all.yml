@@ -1,0 +1,21 @@
+---
+nginx_configs:
+  upstream:
+    - upstream swarm_http {
+      {% for h in groups['swarm'] %}
+      server {{ hostvars[h].ansible_host }}:{{ swarm_port }};
+      {% endfor %}
+      }
+
+nginx_sites:
+  swarm_lb:
+    - listen 8900 ssl
+
+    - server_name {{ env }}-{{ stage }}.status.im
+
+    - ssl_certificate     /certs/origin.crt
+    - ssl_certificate_key /certs/origin.key
+
+    - location / {
+        proxy_pass http://swarm_http;
+      }

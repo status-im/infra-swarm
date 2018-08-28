@@ -29,24 +29,17 @@
       - '{{ cont_vol }}/data:/data:rw'
       - '{{ cont_vol }}/store:/store:rw'
 
-- name: Enable swarm port
+- name: Enable swarm ports
   iptables:
-    comment: '{{ cont_name }}'
+    comment: '{{ item.name }}'
     chain: INPUT
     jump: ACCEPT
     source: '0.0.0.0/0'
-    protocol: udp
-    destination_port: '{{ cont_port }}'
-  notify:
-    - Save iptables rules
-
-- name: Enable swarm HTTP port
-  iptables:
-    comment: '{{ cont_name }} HTTP'
-    chain: INPUT
-    jump: ACCEPT
-    source: '0.0.0.0/0'
-    protocol: tcp
-    destination_port: '{{ swarm_port }}'
+    protocol: '{{ item.proto }}'
+    destination_port: '{{ item.port }}'
+  with_items:
+    - { 'name': 'Swarm',       'port': '{{ cont_port }}',  'proto': 'udp' }
+    - { 'name': 'Swarm HTTP',  'port': '{{ swarm_port }}', 'proto': 'udp' }
+    - { 'name': 'Swarm HTTPS', 'port': 8900,               'proto': 'udp' }
   notify:
     - Save iptables rules
