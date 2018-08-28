@@ -23,5 +23,9 @@ geth_rpc_port: 8545
 geth_pass: ~
 geth_account: ~
 
+# main http port
+swarm_addr: '0.0.0.0'
+swarm_port: 8800
+
 # for key generation
 genkey_image: 'ethereum/client-go:alltools-latest'

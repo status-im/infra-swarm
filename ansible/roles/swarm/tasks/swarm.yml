@@ -11,11 +11,13 @@
     restart: '{{ cont_restart }}'
     ports:
       - '{{ cont_port }}:{{ cont_port }}'
+      - '{{ swarm_port }}:8500'
     links:
       - '{{ geth_name }}:geth'
     command: |
       --debug
       --port={{ cont_port }}
+      --httpaddr={{ swarm_addr }}
       --bzzaccount={{ geth_account }}
       --datadir=/data
       --keystore=/keys
@@ -35,5 +37,16 @@
     source: '0.0.0.0/0'
     protocol: udp
     destination_port: '{{ cont_port }}'
+  notify:
+    - Save iptables rules
+
+- name: Enable swarm HTTP port
+  iptables:
+    comment: '{{ cont_name }} HTTP'
+    chain: INPUT
+    jump: ACCEPT
+    source: '0.0.0.0/0'
+    protocol: tcp
+    destination_port: '{{ swarm_port }}'
   notify:
     - Save iptables rules
