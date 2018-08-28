@@ -1,3 +1,7 @@
+---
+- name: nginx
+  src: jdauphant.nginx
+
 - name: infra-role-bootstrap
   src: git@github.com:status-im/infra-role-bootstrap.git
   scm: git
