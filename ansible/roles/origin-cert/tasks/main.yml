@@ -1,0 +1,14 @@
+---
+- name: Copy over CloudFlare origin certificate
+  copy:
+    content: '{{lookup("passwordstore", "cloud/Cloudflare/origin.crt returnall=true")}}'
+    dest: /certs/origin.crt
+    mode: 0644
+    group: adm
+
+- name: Copy over CloudFlare origin key
+  copy:
+    content: '{{lookup("passwordstore", "cloud/Cloudflare/origin.key returnall=true")}}'
+    dest: /certs/origin.key
+    mode: 0644
+    group: adm
