@@ -9,7 +9,7 @@
 
 /* Digital Ocean */
 
-module "digital-ocean-ams3" {
+module "do-ams3" {
   source         = "../digital-ocean"
   /* specific */
   name           = "${var.name}"
@@ -28,7 +28,7 @@ module "digital-ocean-ams3" {
 resource "cloudflare_record" "do-ams3" {
   domain = "${var.domain}"
   name   = "nodes.do-ams3.${var.env}.${terraform.workspace}"
-  value  = "${element(module.digital-ocean-ams3.public_ip, count.index)}"
+  value  = "${element(module.do-ams3.public_ips, count.index)}"
   count  = "${var.count}"
   type   = "A"
   ttl    = 3600
@@ -36,7 +36,7 @@ resource "cloudflare_record" "do-ams3" {
 
 /* Google Cloud */
 
-module "google-cloud-us-central1" {
+module "gc-us-central1-a" {
   source         = "../google-cloud"
   /* specific */
   name           = "${var.name}"
@@ -54,10 +54,37 @@ module "google-cloud-us-central1" {
   open_ports    = "${var.open_ports}"
 }
 
-resource "cloudflare_record" "gc-us-central1" {
+resource "cloudflare_record" "gc-us-central1-a" {
   domain = "${var.domain}"
   name   = "nodes.gc-us-central1-a.${var.env}.${terraform.workspace}"
-  value  = "${element(module.google-cloud-us-central1.public_ip, count.index)}"
+  value  = "${element(module.gc-us-central1-a.public_ips, count.index)}"
+  count  = "${var.count}"
+  type   = "A"
+  ttl    = 3600
+}
+
+/* Alibaba Cloud */
+
+module "ac-cn-hongkong-c" {
+  source     = "../alibaba-cloud"
+  /* specific */
+  name       = "${var.name}"
+  count      = "${var.count}"
+  env        = "${var.env}"
+  group      = "${var.group}"
+  /* scaling */
+  type       = "${var.ac_size}"
+  zone       = "cn-hongkong-c"
+  /* general */
+  domain     = "${var.domain}"
+  /* firewall */
+  open_ports = "${var.open_ports}"
+}
+
+resource "cloudflare_record" "ac-cn-hongkong-c" {
+  domain = "${var.domain}"
+  name   = "nodes.ac-cn-hongkong-c.${var.env}.${terraform.workspace}"
+  value  = "${element(module.ac-cn-hongkong-c.public_ips, count.index)}"
   count  = "${var.count}"
   type   = "A"
   ttl    = 3600

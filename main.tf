@@ -59,3 +59,12 @@ module "swarm" {
     "30399-30399", /* swarm */
   ]
 }
+
+resource "cloudflare_record" "swarm" {
+  domain = "${var.domain}"
+  name   = "${var.env}-${terraform.workspace}"
+  value  = "${element(module.swarm.public_ips, count.index)}"
+  count  = "${local.ws["hosts_count"]}"
+  type   = "A"
+  ttl    = 3600
+}
