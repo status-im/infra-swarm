@@ -16,6 +16,8 @@ nginx_sites:
     - ssl_certificate     /certs/origin.crt
     - ssl_certificate_key /certs/origin.key
 
+    - client_max_body_size 64k
+
     - location / {
         proxy_pass http://swarm_http;
       }
