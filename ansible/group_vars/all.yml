@@ -9,7 +9,7 @@ nginx_configs:
 
 nginx_sites:
   swarm_lb:
-    - listen 8900 ssl
+    - listen 8443 ssl
 
     - server_name {{ env }}-{{ stage }}.status.im
 

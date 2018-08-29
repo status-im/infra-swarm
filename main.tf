@@ -54,8 +54,8 @@ module "swarm" {
   eth_network = "${var.eth_network}"
   /* firewall */
   open_ports  = [
-    "8800-8800",   /* http */
-    "8900-8900",   /* https */
+    "8080-8080",   /* http */
+    "8443-8443",   /* https */
     "30303-30303", /* geth */
     "30399-30399", /* swarm */
   ]
