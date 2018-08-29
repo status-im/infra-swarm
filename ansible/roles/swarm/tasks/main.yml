@@ -9,8 +9,8 @@
     - '{{ cont_vol }}/data'
     - '{{ cont_vol }}/store'
 
-#- include_tasks: gen_keys.yml
 - include_tasks: account.yml
 - include_tasks: geth.yml
+- include_tasks: bootnodes.yml
 - include_tasks: swarm.yml
 - include_tasks: consul.yml

@@ -1,0 +1,14 @@
+---
+- name: Download list of bootnodes
+  uri:
+    url: 'https://gist.githubusercontent.com/homotopycolimit/db446fa3269a199762e67b2ca037dbeb/raw/8c522a4e64cf02ae0b02f4115bc84d12a5fa85ad/gistfile1.txt'
+    return_content: yes
+  register: bootnodes_raw
+
+- name: Extract bootnode enodes
+  set_fact:
+    bootnodes: |
+      {{ bootnodes_raw.content.split()
+      | map('regex_findall', '^admin\.addPeer\(\"(.*)\"\)$')
+      | map('first')
+      | list }}

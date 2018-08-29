@@ -24,6 +24,7 @@
       --password=/keys/password
       --store.path=/store
       --ens-api='http://geth:{{ geth_rpc_port }}'
+      --bootnodes={{ bootnodes | join(",") }}
     volumes:
       - '{{ geth_vol }}/keys:/keys:rw'
       - '{{ cont_vol }}/data:/data:rw'
