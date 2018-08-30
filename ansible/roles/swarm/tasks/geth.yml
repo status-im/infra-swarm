@@ -23,6 +23,8 @@
       --rpcaddr={{ geth_rpc_addr }}
       --rpcport={{ geth_rpc_port }}
       --rpcapi=db,eth,net,web3,admin
+      --nodiscover
+      --bootnodes={{ bootnodes | join(",") }}
     volumes:
       - '{{ geth_vol }}/keys:/keys:rw'
       - '{{ geth_vol }}/data:/data:rw'
