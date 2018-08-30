@@ -3,13 +3,22 @@ nginx_configs:
   upstream:
     - upstream swarm_http {
       {% for h in groups['swarm'] %}
-      server {{ hostvars[h].ansible_host }}:{{ swarm_port }};
+      server {{ hostvars[h].ansible_host }}:{{ swarm_http }};
       {% endfor %}
       }
 
 nginx_sites:
+  swarm_proxy:
+    - listen {{ swarm_http }}
+
+    - client_max_body_size 64k
+
+    - location / {
+        proxy_pass http://127.0.0.1:{{ swarm_port }};
+      }
+
   swarm_lb:
-    - listen 8443 ssl
+    - listen {{ swarm_ssl }} ssl
 
     - server_name {{ env }}-{{ stage }}.status.im
 

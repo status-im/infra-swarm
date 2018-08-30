@@ -12,7 +12,7 @@
     entrypoint: '/swarm'
     ports:
       - '{{ cont_port }}:{{ cont_port }}'
-      - '{{ swarm_port }}:8500'
+      - '127.0.0.1:{{ swarm_port }}:8500'
     links:
       - '{{ geth_name }}:geth'
     command: |
@@ -41,7 +41,7 @@
     destination_port: '{{ item.port }}'
   with_items:
     - { 'name': 'Swarm',       'port': '{{ cont_port }}',  'proto': 'udp' }
-    - { 'name': 'Swarm HTTP',  'port': '{{ swarm_port }}', 'proto': 'tcp' }
+    - { 'name': 'Swarm HTTP',  'port': '{{ swarm_http }}', 'proto': 'tcp' }
     - { 'name': 'Swarm HTTPS', 'port': '{{ swarm_ssl }}',  'proto': 'tcp' }
   notify:
     - Save iptables rules
