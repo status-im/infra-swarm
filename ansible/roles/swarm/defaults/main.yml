@@ -1,5 +1,5 @@
 ---
-cont_image: 'statusteam/swarm:latest'
+cont_image: 'ethdevops/swarm:latest'
 cont_name: 'swarm-node'
 cont_state: started
 cont_recreate: false
@@ -13,6 +13,7 @@ cont_port: 30399
 cont_addr: '0.0.0.0'
 
 # Geth settings
+geth_image: 'ethdevops/geth:v1.8.14'
 geth_name: 'swarm-geth'
 geth_vol: '/docker/{{ geth_name }}'
 geth_keys: '{{ geth_vol }}/keys'

@@ -9,6 +9,7 @@
     state: '{{ cont_state }}'
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
+    entrypoint: '/swarm'
     ports:
       - '{{ cont_port }}:{{ cont_port }}'
       - '{{ swarm_port }}:8500'
@@ -23,6 +24,7 @@
       --keystore=/keys
       --password=/keys/password
       --store.path=/store
+      --corsdomain='*'
       --ens-api='http://geth:{{ geth_rpc_port }}'
     volumes:
       - '{{ geth_vol }}/keys:/keys:rw'

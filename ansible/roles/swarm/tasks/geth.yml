@@ -2,14 +2,14 @@
 - name: Run Geth container
   docker_container:
     name: '{{ geth_name }}'
-    image: '{{ cont_image }}'
+    image: '{{ geth_image }}'
     user: root
     pull: true
     restart_policy: always
     state: '{{ cont_state }}'
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
-    entrypoint: '/bin/geth'
+    entrypoint: '/geth'
     ports:
       - '{{ geth_port }}:{{ geth_port }}'
       - '{{ geth_rpc_port }}:{{ geth_rpc_port }}'
@@ -23,8 +23,6 @@
       --rpcaddr={{ geth_rpc_addr }}
       --rpcport={{ geth_rpc_port }}
       --rpcapi=db,eth,net,web3,admin
-      --nodiscover
-      --bootnodes={{ bootnodes | join(",") }}
     volumes:
       - '{{ geth_vol }}/keys:/keys:rw'
       - '{{ geth_vol }}/data:/data:rw'
