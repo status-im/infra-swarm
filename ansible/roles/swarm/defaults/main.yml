@@ -30,5 +30,15 @@ swarm_port: 8180
 swarm_http: 8080
 swarm_ssl: 8443
 
+# storage limits (bytes)
+root_mount: '{{ ansible_mounts | selectattr("mount","equalto","/") | list | first }}'
+root_size_bytes: '{{ root_mount["size_total"] | int }}'
+swarm_chunk_size: 5000
+root_chunks: '{{ root_size_bytes|int / swarm_chunk_size|int }}'
+# proportion of root partition to use for swarm
+root_ratio: 0.5
+swarm_store_size: '{{ (root_chunks|float * root_ratio|float) | round | int }}'
+swarm_store_cache_size: 5000
+
 # for key generation
 genkey_image: 'ethereum/client-go:alltools-latest'

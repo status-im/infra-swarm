@@ -24,6 +24,8 @@
       --keystore=/keys
       --password=/keys/password
       --store.path=/store
+      --store.size={{ swarm_store_size }}
+      --store.cache.size={{ swarm_store_cache_size }}
       --corsdomain='*'
       --ens-api='http://geth:{{ geth_rpc_port }}'
     volumes:
