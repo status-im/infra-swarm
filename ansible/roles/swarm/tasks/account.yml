@@ -14,14 +14,14 @@
 - name: Generate Geth account
   docker_container:
     name: '{{ geth_name }}'
-    image: '{{ cont_image }}'
+    image: '{{ geth_image }}'
     user: root
     pull: true
     restart_policy: always
     state: '{{ cont_state }}'
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
-    entrypoint: '/bin/geth'
+    entrypoint: '/geth'
     ports:
       - '{{ geth_port }}:{{ geth_port }}'
       - '{{ geth_rpc_port }}:{{ geth_rpc_port }}'
