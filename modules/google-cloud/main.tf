@@ -54,6 +54,7 @@ resource "google_compute_instance" "host" {
   boot_disk {
     initialize_params {
       image = "${var.image}"
+      size  = "${var.disk_size}"
     }
   }
 

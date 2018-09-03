@@ -48,6 +48,7 @@ module "swarm" {
   /* scaling options */
   count       = "${local.ws["hosts_count"]}"
   do_size     = "s-1vcpu-2gb"
+  gc_size     = "n1-standard-1"
   /* general */
   env         = "${var.env}"
   domain      = "${var.domain}"

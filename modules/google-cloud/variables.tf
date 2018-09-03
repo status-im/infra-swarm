@@ -26,6 +26,11 @@ variable image {
   default     = "ubuntu-os-cloud/ubuntu-1804-lts"
 }
 
+variable disk_size {
+  description = "Size in GB of the root filesystem."
+  default     = 50
+}
+
 variable provider {
   description = "Short name of the provider used."
   /* Google Cloud */
