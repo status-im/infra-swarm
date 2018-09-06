@@ -56,19 +56,54 @@ module "swarm" {
   eth_network = "${var.eth_network}"
   /* firewall */
   open_ports  = [
-    "8080-8080",   /* http */
-    "8443-8443",   /* https */
+    "443-443",   /* https */
     "30303-30303", /* geth */
     "30399-30399", /* swarm */
   ]
 }
 
-resource "cloudflare_record" "swarm" {
-  domain  = "${var.domain}"
-  name    = "${var.env}-${terraform.workspace}"
-  value   = "${element(module.swarm.public_ips, count.index)}"
-  count   = 3
-  type    = "A"
-  ttl     = 3600
-  proxied = true
+resource "cloudflare_load_balancer_monitor" "main" {
+  description    = "Root health check"
+  expected_codes = "2xx"
+  expected_body  = ""
+  method         = "GET"
+  type           = "https"
+  path           = "/"
+  interval       = 60
+  retries        = 5
+  timeout        = 7
+}
+
+/* WARNING: Statically done until Terraform 0.12 arrives */
+resource "cloudflare_load_balancer_pool" "main" {
+  name               = "${terraform.workspace}-${var.env}"
+  monitor            = "${cloudflare_load_balancer_monitor.main.id}"
+  notification_email = "jakub@status.im"
+  minimum_origins    = 1
+  origins {
+    name    = "${element(keys(module.swarm.hosts["do-ams3"]), 0)}"
+    address = "${element(values(module.swarm.hosts["do-ams3"]), 0)}"
+    enabled = true
+  }
+  origins {
+    name    = "${element(keys(module.swarm.hosts["gc-us-central1-a"]), 0)}"
+    address = "${element(values(module.swarm.hosts["gc-us-central1-a"]), 0)}"
+    enabled = true
+  }
+  origins {
+    name    = "${element(keys(module.swarm.hosts["ac-cn-hongkong-c"]), 0)}"
+    address = "${element(values(module.swarm.hosts["ac-cn-hongkong-c"]), 0)}"
+    enabled = true
+  }
+}
+
+// This might work, not sure yet
+resource "cloudflare_load_balancer" "main" {
+  zone             = "status.im"
+  name             = "${terraform.workspace}-${var.env}.status.im"
+  description      = "Load balancing of Swarm fleet."
+  proxied          = true
+
+  fallback_pool_id = "${cloudflare_load_balancer_pool.main.id}"
+  default_pool_ids = ["${cloudflare_load_balancer_pool.main.id}"]
 }
