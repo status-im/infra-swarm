@@ -43,6 +43,10 @@ variable cloudflare_email {
   description = "Email address of Cloudflare account."
 }
 
+variable cloudflare_org_id {
+  description = "ID of the CloudFlare organization."
+}
+
 variable alicloud_access_key {
   description = "Alibaba Cloud API access key."
 }
