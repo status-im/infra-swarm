@@ -1,0 +1,16 @@
+---
+- name: Start watchtower container
+  docker_container:
+    pull:     true
+    name:     'swarm-watch'
+    image:    '{{ watch_image }}'
+    state:    '{{ cont_state }}'
+    recreate: '{{ cont_recreate }}'
+    restart:  '{{ cont_restart }}'
+    restart_policy: always
+    command: |
+      {{ cont_name }}
+      --interval={{ watch_interval }}
+      --cleanup
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
