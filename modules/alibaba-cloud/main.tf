@@ -26,6 +26,13 @@ resource "alicloud_security_group" "host" {
   vpc_id      = "${data.alicloud_vpcs.host.vpcs.0.id}"
 }
 
+resource "alicloud_security_group_rule" "icmp" {
+  security_group_id = "${alicloud_security_group.host.id}"
+  type              = "ingress"
+  ip_protocol       = "icmp"
+  cidr_ip           = "0.0.0.0/0"
+}
+
 /* WARNING: Using 'all' protocol fucks with port_range option */
 resource "alicloud_security_group_rule" "tcp" {
   security_group_id = "${alicloud_security_group.host.id}"
