@@ -13,18 +13,12 @@
 
 - name: Generate Geth account
   docker_container:
-    name: '{{ geth_name }}'
+    name: '{{ geth_name }}-acc-gen'
     image: '{{ geth_image }}'
     user: root
     pull: true
-    restart_policy: always
-    state: '{{ cont_state }}'
-    recreate: '{{ cont_recreate }}'
-    restart: '{{ cont_restart }}'
+    auto_remove: yes
     entrypoint: '/geth'
-    ports:
-      - '{{ geth_port }}:{{ geth_port }}'
-      - '{{ geth_rpc_port }}:{{ geth_rpc_port }}'
     command: |
       account new
       --keystore=/keys
