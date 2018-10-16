@@ -16,7 +16,7 @@
     links:
       - '{{ geth_name }}:geth'
     command: |
-      --debug
+      --verbosity="{{ swarm_log_lvl }}"
       --port={{ cont_port }}
       --httpaddr={{ swarm_addr }}
       --bzzaccount={{ geth_account }}
