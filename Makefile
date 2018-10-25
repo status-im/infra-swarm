@@ -29,7 +29,7 @@ all: requirements install-provider install-provisioner secrets cleanup
 plugins: install-provider install-provisioner
 
 requirements:
-	ansible-galaxy install --force -r ansible/requirements.yml
+	ansible-galaxy install --ignore-errors --force -r ansible/requirements.yml
 
 install-unzip:
 	ifeq (, $(shell which unzip)) \
