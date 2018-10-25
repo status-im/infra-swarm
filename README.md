@@ -60,3 +60,7 @@ The name of your workspace will be used in the DNS names of your hosts, for exam
 mail-01.bug-test-01.eth.f.status.im
 ```
 And it's state will be saved in the [Consul](https://www.consul.io/) cluster managed by the [infra-hq](https://github.com/status-im/infra-hq) repo.
+
+# Details
+
+Read the [Terraform and Ansible](https://github.com/status-im/infra-docs/blob/master/articles/ansible_terraform.md) article in our `infra-docs` repo.
