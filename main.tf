@@ -43,7 +43,7 @@ locals {
 /* RESOURCES --------------------------------------*/
 
 module "swarm" {
-  source      = "modules/multi-provider"
+  source      = "github.com/status-im/infra-tf-multi-provider"
   /* node type */
   name        = "node"
   group       = "swarm"
@@ -54,7 +54,6 @@ module "swarm" {
   /* general */
   env         = "${var.env}"
   domain      = "${var.domain}"
-  eth_network = "${var.eth_network}"
   /* firewall */
   open_ports  = [
     "443-443",   /* https */

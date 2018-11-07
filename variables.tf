@@ -1,11 +1,5 @@
 /* CONFIG ----------------------------------------*/
 
-variable eth_network {
-  description = "Ethereum network to connect to."
-  # Default to Mainnet: see geth/params/cluster.go in status-go
-  default     = 1
-}
-
 variable ssh_keys {
   description = "Names of ssh public keys to add to created hosts"
   type        = "list"
