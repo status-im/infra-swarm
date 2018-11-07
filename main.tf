@@ -1,7 +1,8 @@
 /* PROVIDERS --------------------------------------*/
 
 provider "digitalocean" {
-  token = "${var.digitalocean_token}"
+  token   = "${var.digitalocean_token}"
+  version = "<= 0.1.3"
 }
 provider "cloudflare" {
   email  = "${var.cloudflare_email}"
