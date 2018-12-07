@@ -23,7 +23,7 @@ ifeq ($(OS),Darwin)
 	PLATFORM = darwin
 endif
 
-all: requirements install-provider install-provisioner secrets cleanup
+all: requirements install-provider install-provisioner secrets cleanup init-terraform
 	echo "Success!"
 
 plugins: install-provider install-provisioner
@@ -57,6 +57,9 @@ install-provisioner:
 		make install; \
 		make build-$(PLATFORM); \
 	fi
+
+init-terraform:
+	terraform init -upgrade=true
 
 secrets:
 	pass services/consul/ca-crt > ansible/files/consul-ca.crt
