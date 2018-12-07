@@ -18,7 +18,7 @@ PROVISIONER_VERSION = v2.0.0
 PROVISIONER_ARCHIVE = $(PROVISIONER_NAME)-$(subst _,-,$(ARCH))_$(PROVISIONER_VERSION)
 PROVISIONER_URL = https://github.com/radekg/terraform-provisioner-ansible/releases/download/$(PROVISIONER_VERSION)/$(PROVISIONER_ARCHIVE)
 
-all: requirements install-provider install-provisioner secrets cleanup init-terraform
+all: requirements install-provider install-provisioner secrets init-terraform
 	echo "Success!"
 
 plugins: install-provider install-provisioner
