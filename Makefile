@@ -14,9 +14,9 @@ PROVIDER_ARCHIVE = $(PROVIDER_NAME)-$(ARCH).zip
 PROVIDER_URL = https://github.com/nbering/terraform-provider-ansible/releases/download/$(PROVIDER_VERSION)/$(PROVIDER_ARCHIVE)
 
 PROVISIONER_NAME = terraform-provisioner-ansible
-PROVISIONER_VERSION = v0.0.1
-PROVISIONER_TMP = /tmp/${PROVISIONER_NAME}
-PROVISIONER_URL = https://github.com/radekg/${PROVISIONER_NAME}
+PROVISIONER_VERSION = v2.0.0
+PROVISIONER_ARCHIVE = $(PROVISIONER_NAME)-$(subst _,-,$(ARCH))_$(PROVISIONER_VERSION)
+PROVISIONER_URL = https://github.com/radekg/terraform-provisioner-ansible/releases/download/$(PROVISIONER_VERSION)/$(PROVISIONER_ARCHIVE)
 
 PLATFORM = linux
 ifeq ($(OS),Darwin)
@@ -45,17 +45,9 @@ install-provider:
 
 install-provisioner:
 	if [ ! -e $(PLUGIN_DIR)/$(ARCH)/$(PROVISIONER_NAME)_$(PROVISIONER_VERSION) ]; then \
-		mkdir -p $(PROVISIONER_TMP); \
-		git clone $(PROVISIONER_URL) $(PROVISIONER_TMP); \
-		cd $(PROVISIONER_TMP); \
-		go get github.com/hashicorp/terraform; \
-        go get github.com/mitchellh/go-homedir; \
-        go get github.com/mitchellh/go-linereader; \
-        go get github.com/mitchellh/mapstructure; \
-        go get golang.org/x/crypto/ssh; \
-        go get github.com/satori/go.uuid; \
-		make install; \
-		make build-$(PLATFORM); \
+		mkdir -p $(PLUGIN_DIR); \
+		wget $(PROVISIONER_URL) -O $(PLUGIN_DIR)/$(ARCH)/$(PROVISIONER_NAME)_$(PROVISIONER_VERSION); \
+		chmod +x $(PLUGIN_DIR)/$(ARCH)/$(PROVISIONER_NAME)_$(PROVISIONER_VERSION); \
 	fi
 
 init-terraform:
