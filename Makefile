@@ -19,7 +19,7 @@ PROVISIONER_ARCHIVE = $(PROVISIONER_NAME)-$(subst _,-,$(ARCH))_$(PROVISIONER_VER
 PROVISIONER_URL = https://github.com/radekg/terraform-provisioner-ansible/releases/download/$(PROVISIONER_VERSION)/$(PROVISIONER_ARCHIVE)
 
 all: requirements install-provider install-provisioner secrets init-terraform
-	echo "Success!"
+	@echo "Success!"
 
 plugins: install-provider install-provisioner
 
@@ -54,7 +54,8 @@ secrets:
 	pass services/consul/client-crt > ansible/files/consul-client.crt
 	pass services/consul/client-key > ansible/files/consul-client.key
 	pass cloud/GoogleCloud/json > google-cloud.json
-	echo "\
+	echo "Saving secrets to: terraform.tfvars"
+	@echo "\
 # secrets extracted from password-store\n\
 digitalocean_token  = \"$(shell pass cloud/DigitalOcean/token)\"\n\
 cloudflare_token    = \"$(shell pass cloud/Cloudflare/token)\"\n\
