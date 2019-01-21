@@ -9,7 +9,6 @@
     state: '{{ cont_state }}'
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
-    entrypoint: '/geth'
     # enable image updates via watchtower
     labels:
       com.centurylinklabs.watchtower.enable: 'true'
