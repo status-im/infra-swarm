@@ -9,8 +9,8 @@
     restart:  '{{ cont_restart }}'
     restart_policy: always
     command: |
-      {{ cont_name }}
-      --interval={{ watch_interval }}
       --cleanup
+      --label-enable
+      --interval={{ watch_interval }}
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
