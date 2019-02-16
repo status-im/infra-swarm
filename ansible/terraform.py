@@ -8,8 +8,11 @@ import sys
 
 def _tf_env():
     # way to figure out currenly used TF workspace
-    with open(TERRAFORM_ENV) as f:
-        return f.read()
+    try:
+        with open(TERRAFORM_ENV) as f:
+            return f.read()
+    except:
+        return 'default'
 
 TERRAFORM_PATH = os.environ.get('ANSIBLE_TF_BIN', 'terraform')
 TERRAFORM_DIR = os.environ.get('ANSIBLE_TF_DIR', os.getcwd())
