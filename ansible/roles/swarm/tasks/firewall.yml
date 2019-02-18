@@ -1,0 +1,16 @@
+---
+- name: Enable swarm ports
+  iptables:
+    comment: '{{ item.name }}'
+    action: insert
+    chain: DOCKER-USER
+    jump: ACCEPT
+    source: '0.0.0.0/0'
+    protocol: '{{ item.proto }}'
+    destination_port: '{{ item.port }}'
+  with_items:
+    - { 'name': 'Swarm',       'port': '{{ cont_port }}',  'proto': 'udp' }
+    - { 'name': 'Swarm HTTP',  'port': '{{ swarm_http }}', 'proto': 'tcp' }
+    - { 'name': 'Swarm HTTPS', 'port': '{{ swarm_ssl }}',  'proto': 'tcp' }
+  notify:
+    - Save iptables rules
