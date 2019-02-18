@@ -3,6 +3,8 @@
   file:
     path: '{{ item }}'
     state: directory
+    owner: dockremap
+    recurse: true
   with_items:
     - '{{ geth_vol }}/data'
     - '{{ geth_vol }}/keys'
@@ -12,5 +14,4 @@
 - include_tasks: account.yml
 - include_tasks: geth.yml
 - include_tasks: swarm.yml
-- include_tasks: watchtower.yml
 - include_tasks: consul.yml
