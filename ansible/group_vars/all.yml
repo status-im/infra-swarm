@@ -1,4 +1,10 @@
 ---
+# Root password
+bootstrap__root_pass: '{{lookup("passwordstore", "hosts/admin-pass")}}'
+
+# Consul Encryption
+consul_encryption_key: '{{lookup("passwordstore", "services/consul/encryption-key")}}'
+
 nginx_sites:
   default:
     - listen 443 ssl default_server
