@@ -2,9 +2,9 @@
 - name: nginx
   src: jdauphant.nginx
 
-- name: infra-role-tinc
+- name: origin-cert
   src: git@github.com:status-im/infra-role-origin-cert.git
-  scm: origin-cert
+  scm: git
 
 - name: infra-role-tinc
   src: git@github.com:status-im/infra-role-tinc.git
