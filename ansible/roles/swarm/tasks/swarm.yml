@@ -15,7 +15,7 @@
       com.centurylinklabs.watchtower.enable: 'true'
     ports:
       - '{{ cont_port }}:{{ cont_port }}'
-      - '127.0.0.1:{{ swarm_port }}:8500'
+      - '127.0.0.1:{{ swarm_http_port }}:8500'
     links:
       - '{{ geth_name }}:geth'
     command: |

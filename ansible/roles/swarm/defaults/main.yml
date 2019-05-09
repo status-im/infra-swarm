@@ -29,8 +29,7 @@ geth_account: ~
 
 # main http port
 swarm_addr: '0.0.0.0'
-swarm_port: 8180
-swarm_http: 8080
+swarm_http_port: 8180
 swarm_ssl: 8443
 # 0=silent, 1=error, 2=warn, 3=info, 4=debug, 5=detail
 swarm_log_lvl: 3

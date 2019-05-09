@@ -10,7 +10,6 @@
     destination_port: '{{ item.port }}'
   with_items:
     - { 'name': 'Swarm',       'port': '{{ cont_port }}',  'proto': 'udp' }
-    - { 'name': 'Swarm HTTP',  'port': '{{ swarm_http }}', 'proto': 'tcp' }
-    - { 'name': 'Swarm HTTPS', 'port': '{{ swarm_ssl }}',  'proto': 'tcp' }
+    - { 'name': 'Swarm HTTP',  'port': '{{ swarm_http_port }}', 'proto': 'tcp' }
   notify:
     - Save iptables rules

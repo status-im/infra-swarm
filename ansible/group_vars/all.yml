@@ -26,5 +26,5 @@ nginx_sites:
     - client_max_body_size 10m
 
     - location / {
-        proxy_pass http://localhost:{{ swarm_http }};
+        proxy_pass http://localhost:{{ swarm_http_port }};
       }
