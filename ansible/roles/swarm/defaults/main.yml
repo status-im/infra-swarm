@@ -5,9 +5,6 @@ cont_state: started
 cont_recreate: false
 cont_restart: false
 
-watch_image: 'v2tec/watchtower:latest'
-watch_interval: 3600
-
 cont_vol: '/docker/{{ cont_name }}'
 
 # listen port which will be incremented for every dontainer
