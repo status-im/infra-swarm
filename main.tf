@@ -83,8 +83,8 @@ resource "cloudflare_load_balancer_pool" "main" {
   notification_email = "jakub@status.im"
   minimum_origins    = 1
   origins {
-    name    = "${element(keys(module.swarm.hosts["do-ams3"]), 0)}"
-    address = "${element(values(module.swarm.hosts["do-ams3"]), 0)}"
+    name    = "${element(keys(module.swarm.hosts["do-eu-amsterdam3"]), 0)}"
+    address = "${element(values(module.swarm.hosts["do-eu-amsterdam3"]), 0)}"
     enabled = true
   }
   origins {
