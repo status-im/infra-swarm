@@ -14,11 +14,17 @@ bootstrap__root_pass: '{{lookup("passwordstore", "hosts/admin-pass")}}'
 # Consul Encryption
 consul_encryption_key: '{{lookup("passwordstore", "services/consul/encryption-key")}}'
 
-nginx_sites:
-  default:
-    - listen 443 ssl default_server
+swarm_domain: test-swarm.status.im
 
-    - server_name _
+nginx_sites:
+  swarm_http:
+    - listen 80
+    - server_name {{ swarm_domain }}
+    - return 302 https://$host$request_uri
+  swarm_ssl:
+    - listen 443 ssl
+
+    - server_name {{ swarm_domain }}
 
     - ssl_certificate     /certs/origin.crt
     - ssl_certificate_key /certs/origin.key
