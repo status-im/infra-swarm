@@ -18,7 +18,7 @@
     user: root
     pull: true
     auto_remove: yes
-    entrypoint: '/geth'
+    entrypoint: '/usr/local/bin/geth'
     command: |
       account new
       --keystore=/keys
