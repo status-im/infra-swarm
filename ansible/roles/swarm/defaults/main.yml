@@ -13,7 +13,7 @@ cont_port: 30399
 cont_addr: '0.0.0.0'
 
 # Geth settings
-geth_image: 'ethereum/client-go:latest'
+geth_image: 'ethereum/client-go:v1.8.27'
 geth_name: 'swarm-geth'
 geth_vol: '/docker/{{ geth_name }}'
 geth_keys: '{{ geth_vol }}/keys'
