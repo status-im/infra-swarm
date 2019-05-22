@@ -74,6 +74,8 @@ resource "cloudflare_load_balancer_monitor" "main" {
   interval       = 60
   retries        = 5
   timeout        = 7
+  /* disables SSl cert check, this way we can use origin */
+  allow_insecure = true
 }
 
 /* WARNING: Statically done until Terraform 0.12 arrives */
