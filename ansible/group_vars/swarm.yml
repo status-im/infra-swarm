@@ -1,0 +1,15 @@
+---
+# proportion of root partition to use for swarm
+swarm_store_ratio: 0.7
+swarm_store_mount_name: '/'
+swarm_store_mount: |
+  {{ ansible_mounts
+  | selectattr("mount","equalto",swarm_store_mount_name)
+  | list | first }}
+swarm_store_bytes: '{{ swarm_store_mount["size_total"] | int }}'
+swarm_store_chunks: '{{ swarm_store_bytes |int / swarm_chunk_size|int }}'
+
+swarm_store_size: |
+  {{ (
+    swarm_store_chunks | float * swarm_store_ratio | float
+  ) | round | int }}
