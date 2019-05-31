@@ -49,7 +49,7 @@ module "swarm" {
   group       = "swarm"
   /* scaling options */
   count       = "${local.ws["hosts_count"]}"
-  do_size     = "s-1vcpu-2gb"
+  do_size     = "s-2vcpu-4gb"
   gc_size     = "n1-standard-2"
   ac_size     = "ecs.sn1ne.large"
   gc_vol_size = 50
