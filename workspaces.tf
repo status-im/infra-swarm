@@ -12,9 +12,9 @@ locals {
     defaults = {
       hosts_count = 1
     }
-
     # For testing infra changes before rollout to other fleets
     test = {}
   }
 }
+
 /*---------------------------------------------------------*/
