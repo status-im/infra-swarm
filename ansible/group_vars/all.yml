@@ -5,8 +5,11 @@ cont_recreate: false
 cont_restart: false
 
 # CloudFlare Origin certificates
-cloudflare_origin_crt: '{{lookup("passwordstore", "cloud/Cloudflare/origin.crt returnall=true")}}'
-cloudflare_origin_key: '{{lookup("passwordstore", "cloud/Cloudflare/origin.key returnall=true")}}'
+origin_certs:
+  - domain: 'status.im'
+    crt: '{{lookup("passwordstore", "cloud/Cloudflare/status.im/origin.crt returnall=true")}}'
+    key: '{{lookup("passwordstore", "cloud/Cloudflare/status.im/origin.key returnall=true")}}'
+    default: true
 
 # Root password
 bootstrap__root_pass: '{{lookup("passwordstore", "hosts/admin-pass")}}'
@@ -26,8 +29,8 @@ nginx_sites:
 
     - server_name {{ swarm_domain }}
 
-    - ssl_certificate     /certs/origin.crt
-    - ssl_certificate_key /certs/origin.key
+    - ssl_certificate     /certs/status.im/origin.crt
+    - ssl_certificate_key /certs/status.im/origin.key
 
     - client_max_body_size 10m
 

@@ -2,6 +2,6 @@
 - name: Configure swarm
   hosts: swarm
   roles:
-    - origin-cert
+    - origin-certs
     - nginx
     - swarm
