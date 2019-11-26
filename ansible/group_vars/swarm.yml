@@ -1,6 +1,6 @@
 ---
 # proportion of root partition to use for swarm
-swarm_store_ratio: 0.7
+swarm_store_ratio: 0.5
 swarm_store_mount_name: '/'
 swarm_store_mount: |
   {{ ansible_mounts
