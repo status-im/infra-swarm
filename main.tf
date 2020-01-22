@@ -5,9 +5,9 @@ provider "digitalocean" {
 }
 
 provider "cloudflare" {
-  email  = var.cloudflare_email
-  token  = var.cloudflare_token
-  org_id = var.cloudflare_org_id
+  email      = var.cloudflare_email
+  api_key    = var.cloudflare_token
+  account_id = var.cloudflare_account
 }
 
 provider "google" {
@@ -41,6 +41,21 @@ terraform {
 
 locals {
   ws = merge(local.env["defaults"], local.env[terraform.workspace])
+}
+
+/* CF Zones ------------------------------------*/
+
+/* CloudFlare Zone IDs required for records */
+data "cloudflare_zones" "active" {
+  filter { status = "active" }
+}
+
+/* For easier access to zone ID by domain name */
+locals {
+  zones = {
+    for zone in data.cloudflare_zones.active.zones:
+      zone.name => zone.id
+  }
 }
 
 /* RESOURCES --------------------------------------*/
@@ -111,7 +126,7 @@ resource "cloudflare_load_balancer_pool" "main" {
 
 // This might work, not sure yet
 resource "cloudflare_load_balancer" "main" {
-  zone        = "status.im"
+  zone_id     = local.zones["status.im"]
   name        = "${terraform.workspace}-${var.env}.status.im"
   description = "Load balancing of Swarm fleet."
   proxied     = true
