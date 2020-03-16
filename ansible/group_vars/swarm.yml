@@ -1,5 +1,5 @@
 ---
-swarm_domain: swarm.status.im
+swarm_domain: test-swarm.status.im
 
 # proportion of root partition to use for swarm
 swarm_store_ratio: 0.5
@@ -10,8 +10,29 @@ swarm_store_mount: |
   | list | first }}
 swarm_store_bytes: '{{ swarm_store_mount["size_total"] | int }}'
 swarm_store_chunks: '{{ swarm_store_bytes |int / swarm_chunk_size|int }}'
-
 swarm_store_size: |
   {{ (
     swarm_store_chunks | float * swarm_store_ratio | float
   ) | round | int }}
+
+# Geth node settings
+geth_cont_tag: 'v1.9.12'
+geth_cont_name: 'swarm-geth'
+geth_cont_vol: '/docker/{{ geth_cont_name }}'
+geth_sync_mode: 'light'
+# RPC access required for ENS resolution
+geth_rcp_api: 'db,eth,net,web3,admin'
+geth_rpc_addr: '0.0.0.0'
+geth_rpc_port: 8545
+# adjust cache size to available memory
+geth_cache_ratio: 0.2
+# has to be higher than mem_cache_ratio
+geth_cont_mem_ratio: 0.4
+# Create account for Geth with no password
+geth_account_pass: '{{lookup("passwordstore", "service/swarm/geth/acc-pass")}}'
+
+# Geth container to use with Swarm
+swarm_geth_account: '{{ geth_account_addr | mandatory }}'
+swarm_geth_cont_name: '{{ geth_cont_name }}'
+swarm_geth_cont_vol: '{{ geth_cont_vol }}'
+swarm_geth_rcp_port: '{{ geth_rpc_port }}'

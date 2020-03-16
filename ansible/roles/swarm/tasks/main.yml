@@ -1,18 +1,14 @@
 ---
-- name: Create directories for geth
+- name: Create directories for Swarm
   file:
     path: '{{ item }}'
     state: directory
     owner: dockremap
     recurse: true
   with_items:
-    - '{{ geth_vol }}/data'
-    - '{{ geth_vol }}/keys'
     - '{{ swarm_cont_vol }}/data'
     - '{{ swarm_cont_vol }}/store'
 
-- include_tasks: account.yml
-- include_tasks: geth.yml
 - include_tasks: firewall.yml
 - include_tasks: swarm.yml
 - include_tasks: consul.yml

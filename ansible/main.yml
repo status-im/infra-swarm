@@ -2,6 +2,7 @@
 - name: Configure swarm
   hosts: swarm
   roles:
-    - origin-certs
-    - nginx
-    - swarm
+    - { role: origin-certs,    tags: origin-certs }
+    - { role: nginx,           tags: nginx }
+    - { role: infra-role-geth, tags: infra-role-geth }
+    - { role: swarm,           tags: swarm }

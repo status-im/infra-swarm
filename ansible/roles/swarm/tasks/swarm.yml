@@ -1,5 +1,5 @@
 ---
-- name: Run Swarm container
+- name: Start Swarm container
   docker_container:
     name: '{{ swarm_cont_name }}'
     image: '{{ swarm_cont_image }}'
@@ -9,7 +9,6 @@
     state: '{{ cont_state }}'
     recreate: '{{ cont_recreate }}'
     restart: '{{ cont_restart }}'
-    entrypoint: '/swarm'
     # enable image updates via watchtower
     labels:
       com.centurylinklabs.watchtower.enable: 'true'
@@ -17,21 +16,21 @@
       - '{{ swarm_cont_port }}:{{ swarm_cont_port }}'
       - '127.0.0.1:{{ swarm_http_port }}:8500'
     links:
-      - '{{ geth_name }}:geth'
+      - '{{ swarm_geth_cont_name | mandatory }}:geth'
     command: |
       --verbosity={{ swarm_log_lvl }}
       --port={{ swarm_cont_port }}
       --httpaddr={{ swarm_addr }}
-      --bzzaccount={{ geth_account }}
+      --bzzaccount={{ swarm_geth_account | mandatory }}
       --datadir=/data
       --keystore=/keys
-      --password=/keys/password
+      --password=/keys/account.pass
       --store.path=/store
       --store.size={{ swarm_store_size }}
       --store.cache.size={{ swarm_store_cache_size }}
       --corsdomain='*'
-      --ens-api=http://geth:{{ geth_rpc_port }}
+      --ens-api=http://geth:{{ swarm_geth_rcp_port | mandatory }}
     volumes:
-      - '{{ geth_vol }}/keys:/keys:rw'
+      - '{{ swarm_geth_cont_vol | mandatory }}/keys:/keys:rw'
       - '{{ swarm_cont_vol }}/data:/data:rw'
       - '{{ swarm_cont_vol }}/store:/store:rw'
