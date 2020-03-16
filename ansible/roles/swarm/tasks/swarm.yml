@@ -1,8 +1,8 @@
 ---
 - name: Run Swarm container
   docker_container:
-    name: '{{ cont_name }}'
-    image: '{{ cont_image }}'
+    name: '{{ swarm_cont_name }}'
+    image: '{{ swarm_cont_image }}'
     user: root
     pull: true
     restart_policy: always
@@ -14,13 +14,13 @@
     labels:
       com.centurylinklabs.watchtower.enable: 'true'
     ports:
-      - '{{ cont_port }}:{{ cont_port }}'
+      - '{{ swarm_cont_port }}:{{ swarm_cont_port }}'
       - '127.0.0.1:{{ swarm_http_port }}:8500'
     links:
       - '{{ geth_name }}:geth'
     command: |
-      --verbosity="{{ swarm_log_lvl }}"
-      --port={{ cont_port }}
+      --verbosity={{ swarm_log_lvl }}
+      --port={{ swarm_cont_port }}
       --httpaddr={{ swarm_addr }}
       --bzzaccount={{ geth_account }}
       --datadir=/data
@@ -30,8 +30,8 @@
       --store.size={{ swarm_store_size }}
       --store.cache.size={{ swarm_store_cache_size }}
       --corsdomain='*'
-      --ens-api='http://geth:{{ geth_rpc_port }}'
+      --ens-api=http://geth:{{ geth_rpc_port }}
     volumes:
       - '{{ geth_vol }}/keys:/keys:rw'
-      - '{{ cont_vol }}/data:/data:rw'
-      - '{{ cont_vol }}/store:/store:rw'
+      - '{{ swarm_cont_vol }}/data:/data:rw'
+      - '{{ swarm_cont_vol }}/store:/store:rw'

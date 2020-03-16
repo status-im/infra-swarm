@@ -1,28 +1,16 @@
 ---
-cont_image: 'ethdevops/swarm:latest'
-cont_name: 'swarm-node'
+swarm_cont_image: 'ethdevops/swarm:latest'
+swarm_cont_name: 'swarm-node'
+swarm_cont_vol: '/docker/{{ cont_name }}'
+# listen port which will be incremented for every dontainer
+swarm_cont_port: 30399 
+# address to listen on
+swarm_cont_addr: '0.0.0.0'
+
+# Generic container options
 cont_state: started
 cont_recreate: false
 cont_restart: false
-
-cont_vol: '/docker/{{ cont_name }}'
-
-# listen port which will be incremented for every dontainer
-cont_port: 30399 
-# address to listen on
-cont_addr: '0.0.0.0'
-
-# Geth settings
-geth_image: 'ethereum/client-go:v1.8.27'
-geth_name: 'swarm-geth'
-geth_vol: '/docker/{{ geth_name }}'
-geth_keys: '{{ geth_vol }}/keys'
-geth_port: 30303
-geth_rpc_addr: '0.0.0.0'
-geth_rpc_port: 8545
-# account to use for swarm
-geth_pass: ~
-geth_account: ~
 
 # main http port
 swarm_addr: '0.0.0.0'
@@ -36,6 +24,18 @@ swarm_chunk_size: 5000
 # roughly 25GB
 swarm_store_size: 5000000
 swarm_store_cache_size: 5000
+
+# Geth settings
+geth_image: 'ethereum/client-go:v1.8.27'
+geth_name: 'swarm-geth'
+geth_vol: '/docker/{{ geth_name }}'
+geth_keys: '{{ geth_vol }}/keys'
+geth_port: 30303
+geth_rpc_addr: '0.0.0.0'
+geth_rpc_port: 8545
+# account to use for swarm
+geth_pass: ~
+geth_account: ~
 
 # for key generation
 genkey_image: 'ethereum/client-go:alltools-latest'

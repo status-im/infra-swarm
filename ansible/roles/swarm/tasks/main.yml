@@ -8,8 +8,8 @@
   with_items:
     - '{{ geth_vol }}/data'
     - '{{ geth_vol }}/keys'
-    - '{{ cont_vol }}/data'
-    - '{{ cont_vol }}/store'
+    - '{{ swarm_cont_vol }}/data'
+    - '{{ swarm_cont_vol }}/store'
 
 - include_tasks: account.yml
 - include_tasks: geth.yml

@@ -9,7 +9,7 @@
     protocol: '{{ item.proto }}'
     destination_port: '{{ item.port }}'
   with_items:
-    - { 'name': 'Swarm',       'port': '{{ cont_port }}',  'proto': 'udp' }
+    - { 'name': 'Swarm',       'port': '{{ swarm_cont_port }}', 'proto': 'udp' }
     - { 'name': 'Swarm HTTP',  'port': '{{ swarm_http_port }}', 'proto': 'tcp' }
   notify:
     - Save iptables rules
