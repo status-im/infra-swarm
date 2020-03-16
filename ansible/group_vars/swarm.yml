@@ -1,4 +1,6 @@
 ---
+swarm_domain: swarm.status.im
+
 # proportion of root partition to use for swarm
 swarm_store_ratio: 0.5
 swarm_store_mount_name: '/'

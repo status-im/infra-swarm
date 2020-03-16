@@ -17,8 +17,6 @@ bootstrap__root_pass: '{{lookup("passwordstore", "hosts/admin-pass")}}'
 # Consul Encryption
 consul_encryption_key: '{{lookup("passwordstore", "services/consul/encryption-key")}}'
 
-swarm_domain: test-swarm.status.im
-
 nginx_sites:
   swarm_http:
     - listen 80

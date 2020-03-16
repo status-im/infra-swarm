@@ -22,16 +22,16 @@ swarm_store_size: 5000000
 swarm_store_cache_size: 5000
 
 # Geth settings
-geth_image: 'ethereum/client-go:v1.8.27'
-geth_name: 'swarm-geth'
-geth_vol: '/docker/{{ geth_name }}'
-geth_keys: '{{ geth_vol }}/keys'
-geth_port: 30303
-geth_rpc_addr: '0.0.0.0'
-geth_rpc_port: 8545
+swarm_geth_image: 'ethereum/client-go:v1.8.27'
+swarm_geth_name: 'swarm-geth'
+swarm_geth_vol: '/docker/{{ geth_name }}'
+swarm_geth_keys: '{{ geth_vol }}/keys'
+swarm_geth_port: 30303
+swarm_geth_rpc_addr: '0.0.0.0'
+swarm_geth_rpc_port: 8545
 # account to use for swarm
-geth_pass: ~
-geth_account: ~
+swarm_geth_pass: ~
+swarm_geth_account: ~
 
 # for key generation
 genkey_image: 'ethereum/client-go:alltools-latest'
