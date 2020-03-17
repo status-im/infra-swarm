@@ -8,6 +8,10 @@ swarm_cont_port: 30399
 # address to listen on
 swarm_cont_addr: '0.0.0.0'
 
+# permissions
+swarm_cont_uid: 0
+swarm_host_uid: '{{ 100000 + swarm_cont_uid | int }}'
+
 # main http port
 swarm_addr: '0.0.0.0'
 swarm_http_port: 8180

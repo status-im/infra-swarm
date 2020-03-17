@@ -3,12 +3,13 @@
   file:
     path: '{{ item }}'
     state: directory
-    owner: dockremap
+    owner: '{{ swarm_host_uid }}'
+    group: 'docker'
     recurse: true
   with_items:
     - '{{ swarm_cont_vol }}/data'
     - '{{ swarm_cont_vol }}/store'
 
 - include_tasks: firewall.yml
-- include_tasks: swarm.yml
+- include_tasks: container.yml
 - include_tasks: consul.yml
