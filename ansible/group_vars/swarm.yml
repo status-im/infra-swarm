@@ -30,6 +30,7 @@ geth_cache_ratio: 0.2
 geth_cont_mem_ratio: 0.4
 # Create account for Geth with no password
 geth_account_pass: '{{lookup("passwordstore", "service/swarm/geth/acc-pass")}}'
+geth_account_json: '{{lookup("passwordstore", "service/swarm/geth/acc-json")}}'
 
 # Geth container to use with Swarm
 swarm_geth_account: '{{ geth_account_addr | mandatory }}'
