@@ -1,3 +1,7 @@
+# WARNING
+
+This repo is legacy. This fleet no longer exists.
+
 # Description
 
 [Swarm](https://github.com/ethersphere/swarm) clusters configuration.
